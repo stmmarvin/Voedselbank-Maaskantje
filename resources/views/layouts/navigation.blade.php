@@ -15,18 +15,6 @@
                         Voedselbank <span class="text-orange-300">Maaskantje</span>
                     </span>
                 </a>
-
-                <!-- Nav tabs -->
-                <div class="hidden md:flex items-center gap-1">
-                    <a href="{{ route('dashboard') }}"
-                       class="{{ request()->routeIs('dashboard') || request()->routeIs('admin.dashboard') ? 'nav-link-active' : 'nav-link' }}">
-                        Overzicht
-                    </a>
-                    <a href="#" class="nav-link">📋 Informatie</a>
-                    <a href="#" class="nav-link">📦 Voorraad</a>
-                    <a href="#" class="nav-link">⚠️ Allergieën</a>
-                    <a href="#" class="nav-link">🏢 Leveranciers</a>
-                </div>
             </div>
 
             <!-- Right side -->
