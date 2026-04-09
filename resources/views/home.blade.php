@@ -55,13 +55,12 @@
         .nav-links {
             display: flex;
             gap: 18px;
-            color: var(--muted);
-            font-size: 0.95rem;
             flex-wrap: wrap;
             justify-content: flex-end;
+            align-items: center;
         }
 
-        .nav-links span {
+        .nav-links a {
             display: inline-flex;
             flex-direction: column;
             align-items: center;
@@ -70,9 +69,30 @@
             padding: 12px 14px;
             text-align: center;
             line-height: 1.35;
-            border-radius: 999px;
-            background-color: var(--accent-soft);
-            cursor: default;
+            color: var(--muted);
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: linear-gradient(180deg, #fffaf3 0%, var(--accent-soft) 100%);
+            box-shadow: 0 8px 18px rgba(223, 122, 23, 0.08);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-dark);
+            border-color: rgba(223, 122, 23, 0.35);
+            box-shadow: 0 12px 24px rgba(223, 122, 23, 0.18);
+            transform: translateY(-2px);
+        }
+
+        .nav-word {
+            display: block;
+        }
+
+        .nav-word + .nav-word {
+            margin-top: 2px;
         }
 
         .logo {
@@ -203,11 +223,26 @@
                 </div>
             </div>
             <div class="nav-links">
-                <span>Klant<br>registeren</span>
-                <span>Leverancier<br>registeren</span>
-                <span>Allergie<br>overzicht</span>
-                <span>Voorraad<br>overzicht</span>
-                <span>Voedselpakketen<br>aanmaken</span>
+                <a href="#">
+                    <span class="nav-word">Klant</span>
+                    <span class="nav-word">registeren</span>
+                </a>
+                <a href="#">
+                    <span class="nav-word">Leverancier</span>
+                    <span class="nav-word">registeren</span>
+                </a>
+                <a href="#">
+                    <span class="nav-word">Allergie</span>
+                    <span class="nav-word">overzicht</span>
+                </a>
+                <a href="#">
+                    <span class="nav-word">Voorraad</span>
+                    <span class="nav-word">overzicht</span>
+                </a>
+                <a href="#">
+                    <span class="nav-word">Voedselpakketten</span>
+                    <span class="nav-word">aanmaken</span>
+                </a>
             </div>
         </nav>
 
