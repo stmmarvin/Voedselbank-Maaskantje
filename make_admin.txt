@@ -1,0 +1,3 @@
+\App\Models\Inlog::where('Email', 'admin@voedselbank.nl')->delete();
+$admin = \App\Models\Inlog::create(['Email' => 'admin@voedselbank.nl', 'Wachtwoord' => \Illuminate\Support\Facades\Hash::make('admin123'), 'Rol' => 'admin']);
+echo "Admin created with ID: " . $admin->Id;

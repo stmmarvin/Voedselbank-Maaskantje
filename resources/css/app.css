@@ -10,6 +10,15 @@
         --vb-cream:  #fff7ed;
         --vb-brown:  #78350f;
     }
+    
+    /* Custom orange cursor */
+    body {
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23ea580c" stroke="white" stroke-width="1"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>') 8 8, auto;
+    }
+    
+    a, button, .card {
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23fb923c" stroke="white" stroke-width="1"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>') 8 8, pointer;
+    }
 }
 
 @layer components {
@@ -34,4 +43,91 @@
     .nav-link-active {
         @apply bg-orange-700 text-white px-3 py-2 rounded-md text-sm font-medium;
     }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-3deg); }
+    75% { transform: rotate(3deg); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 5px rgba(234, 88, 12, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(234, 88, 12, 0.8); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slide-up {
+    animation: slideUp 0.8s ease-out;
+}
+
+.animate-pulse-slow {
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.animate-wiggle {
+    animation: wiggle 0.5s ease-in-out;
+}
+
+.animate-bounce {
+    animation: bounce 1s ease-in-out infinite;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Hover effects */
+.card:hover {
+    cursor: pointer;
+}
+
+.btn-primary:active {
+    transform: scale(0.95);
+}
+
+/* Smooth transitions */
+* {
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
 }
