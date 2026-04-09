@@ -536,6 +536,7 @@
                                     <th>Klant</th>
                                     <th>Email</th>
                                     <th>Specifieke wensen</th>
+                                    <th>Actie</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -556,6 +557,11 @@
                                         </td>
                                         <td>
                                             <?= htmlspecialchars($row['SpecifiekeWensen'] ?: 'Geen extra wensen opgegeven', ENT_QUOTES, 'UTF-8') ?>
+                                        </td>
+                                        <td>
+                                            <a class="add-button" href="/allergie-bewerken?id=<?= (int) $row['allergie_id'] ?>" style="padding:10px 14px;">
+                                                Bewerken
+                                            </a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

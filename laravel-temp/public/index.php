@@ -8,6 +8,7 @@ $routes = [
     '/' => $viewBase.'/allergie-overzicht.blade.php',
     '/allergie-overzicht' => $viewBase.'/allergie-overzicht.blade.php',
     '/allergie-toevoegen' => $viewBase.'/allergie-toevoegen.blade.php',
+    '/allergie-bewerken' => $viewBase.'/allergie-bewerken.blade.php',
 ];
 
 function readEnvFile(string $path): array
@@ -112,6 +113,30 @@ function createAllergy(array $env, string $naam, ?string $ernst): void
     ]);
 }
 
+function findAllergy(array $env, int $id): ?array
+{
+    $pdo = createPdo($env);
+    $statement = $pdo->prepare('SELECT Id, Naam, Ernst FROM Allergie WHERE Id = :id');
+    $statement->execute(['id' => $id]);
+    $row = $statement->fetch();
+
+    return $row ?: null;
+}
+
+function updateAllergy(array $env, int $id, string $naam, ?string $ernst): void
+{
+    $pdo = createPdo($env);
+    $statement = $pdo->prepare(
+        'UPDATE Allergie SET Naam = :naam, Ernst = :ernst WHERE Id = :id'
+    );
+
+    $statement->execute([
+        'id' => $id,
+        'naam' => $naam,
+        'ernst' => $ernst !== '' ? $ernst : null,
+    ]);
+}
+
 $env = readEnvFile($envPath);
 $dbError = null;
 $allergyRows = [];
@@ -119,6 +144,9 @@ $customerCount = 0;
 $allergyCount = 0;
 $formError = null;
 $formSuccess = isset($_GET['success']) ? 'De allergie is opgeslagen in de database.' : null;
+$editFormError = null;
+$editFormSuccess = isset($_GET['updated']) ? 'De allergie is bijgewerkt.' : null;
+$editAllergy = null;
 
 if ($path === '/allergie-toevoegen' && ($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     $naam = trim($_POST['naam'] ?? '');
@@ -138,6 +166,47 @@ if ($path === '/allergie-toevoegen' && ($_SERVER['REQUEST_METHOD'] ?? 'GET') ===
         } catch (Throwable $exception) {
             $formError = 'Opslaan mislukt: '.$exception->getMessage();
         }
+    }
+}
+
+if ($path === '/allergie-bewerken') {
+    $editId = (int) ($_GET['id'] ?? $_POST['id'] ?? 0);
+
+    if ($editId > 0) {
+        try {
+            $editAllergy = findAllergy($env, $editId);
+        } catch (Throwable $exception) {
+            $editFormError = 'Ophalen mislukt: '.$exception->getMessage();
+        }
+    }
+
+    if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
+        $naam = trim($_POST['naam'] ?? '');
+        $ernst = trim($_POST['ernst'] ?? '');
+
+        if ($editId <= 0 || ! $editAllergy) {
+            $editFormError = 'De geselecteerde allergie bestaat niet.';
+        } elseif ($naam === '') {
+            $editFormError = 'Vul een naam voor de allergie in.';
+        } elseif (mb_strlen($naam) > 100) {
+            $editFormError = 'De naam mag maximaal 100 tekens bevatten.';
+        } elseif ($ernst !== '' && mb_strlen($ernst) > 20) {
+            $editFormError = 'De ernst mag maximaal 20 tekens bevatten.';
+        } else {
+            try {
+                updateAllergy($env, $editId, $naam, $ernst);
+                header('Location: /allergie-bewerken?id='.$editId.'&updated=1');
+                exit;
+            } catch (Throwable $exception) {
+                $editFormError = 'Bijwerken mislukt: '.$exception->getMessage();
+            }
+        }
+
+        $editAllergy = [
+            'Id' => $editId,
+            'Naam' => $naam,
+            'Ernst' => $ernst,
+        ];
     }
 }
 
