@@ -37,7 +37,7 @@
         </div>
         
         <div class="form-group">
-            <label>Aanta</label>
+            <label>aantal</label>
             <input type="number" name="aantal" value="{{ old('aantal') }}" min="0" required>
         </div>
         
