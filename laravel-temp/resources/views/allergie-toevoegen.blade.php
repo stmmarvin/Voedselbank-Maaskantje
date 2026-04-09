@@ -184,8 +184,21 @@
             background-color: rgba(255, 255, 255, 0.94);
             border: 1px solid var(--line);
             border-radius: 22px;
-            box-shadow: 0 18px 40px rgba(115, 104, 92, 0.08);
+            box-shadow: 0 24px 48px rgba(115, 104, 92, 0.10);
             padding: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: "";
+            position: absolute;
+            right: -52px;
+            top: -56px;
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(223, 122, 23, 0.16) 0%, rgba(223, 122, 23, 0) 72%);
         }
 
         .eyebrow {
@@ -227,6 +240,13 @@
         .message.error {
             color: var(--error-text);
             background-color: var(--error-bg);
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: rgba(223, 122, 23, 0.45);
+            box-shadow: 0 0 0 4px rgba(223, 122, 23, 0.12);
         }
 
         .form-grid {

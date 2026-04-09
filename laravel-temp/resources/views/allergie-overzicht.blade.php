@@ -165,11 +165,24 @@
             background-color: var(--surface);
             border: 1px solid var(--line);
             border-radius: 24px;
-            box-shadow: 0 18px 40px rgba(115, 104, 92, 0.08);
+            box-shadow: 0 24px 48px rgba(115, 104, 92, 0.10);
         }
 
         .hero-card {
+            position: relative;
             padding: 38px 34px;
+            overflow: hidden;
+        }
+
+        .hero-card::after {
+            content: "";
+            position: absolute;
+            right: -46px;
+            top: -58px;
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(223, 122, 23, 0.18) 0%, rgba(223, 122, 23, 0) 72%);
         }
 
         .hero-card small {
@@ -198,8 +211,18 @@
         }
 
         .hero-side {
+            position: relative;
             padding: 26px;
             background: linear-gradient(180deg, var(--surface-soft) 0%, var(--surface) 100%);
+            overflow: hidden;
+        }
+
+        .hero-side::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(223, 122, 23, 0.08), transparent 58%);
+            pointer-events: none;
         }
 
         .hero-side h2 {
@@ -234,7 +257,8 @@
             background-color: var(--surface);
             border: 1px solid var(--line);
             border-radius: 24px;
-            box-shadow: 0 18px 40px rgba(115, 104, 92, 0.08);
+            box-shadow: 0 24px 48px rgba(115, 104, 92, 0.10);
+            overflow: hidden;
         }
 
         .panel-header {
@@ -261,11 +285,12 @@
             gap: 8px;
             padding: 12px 16px;
             border-radius: 14px;
-            background-color: var(--accent);
+            background: linear-gradient(180deg, #f08a18 0%, var(--accent) 100%);
             color: #ffffff;
             text-decoration: none;
             font-weight: 700;
             white-space: nowrap;
+            box-shadow: 0 14px 28px rgba(223, 122, 23, 0.20);
         }
 
         .table-wrap {
@@ -278,6 +303,7 @@
             overflow: hidden;
             border-radius: 18px;
             border: 1px solid var(--line);
+            background: linear-gradient(180deg, #fffdfa 0%, #fff8f2 100%);
         }
 
         thead th {
@@ -287,7 +313,7 @@
             letter-spacing: 0.04em;
             text-transform: uppercase;
             color: var(--muted);
-            background-color: #fcf7f0;
+            background: linear-gradient(180deg, #fff2e4 0%, #fcf7f0 100%);
         }
 
         tbody td {
@@ -311,7 +337,7 @@
             gap: 8px;
             padding: 7px 10px;
             border-radius: 999px;
-            background-color: var(--accent-soft);
+            background: linear-gradient(180deg, #fff3e5 0%, var(--accent-soft) 100%);
             color: var(--accent-dark);
             font-size: 0.82rem;
             font-weight: 700;
@@ -358,7 +384,18 @@
             background-color: var(--surface);
             border: 1px solid var(--line);
             border-radius: 20px;
-            box-shadow: 0 18px 40px rgba(115, 104, 92, 0.08);
+            box-shadow: 0 24px 48px rgba(115, 104, 92, 0.10);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar-card::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto auto 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), #ffba74);
         }
 
         .sidebar-card h3 {
