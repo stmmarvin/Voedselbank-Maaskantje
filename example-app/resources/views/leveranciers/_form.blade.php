@@ -11,7 +11,7 @@
 
     <div class="form-grid">
         <div class="field">
-            <label for="bedrijfsnaam">Naam:</label>
+            <label for="bedrijfsnaam">Bedrijfsnaam:</label>
             <input id="bedrijfsnaam" name="bedrijfsnaam" type="text" value="{{ old('bedrijfsnaam', $leverancier->bedrijfsnaam) }}" required>
             @error('bedrijfsnaam')
                 <div class="error">{{ $message }}</div>

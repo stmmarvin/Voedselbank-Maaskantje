@@ -20,7 +20,7 @@
                 value="{{ $zoek }}"
                 placeholder="Zoeken..."
                 aria-label="Zoeken in leveranciers"
-                style="width: 100%; max-width: 170px; padding: 3px 8px; border-radius: 2px; border: 1px solid #bdbdbd; background: #ffffff; color: #222;"
+                style="width: 100%; max-width: 320px; padding: 6px 10px; border-radius: 6px; border: 1px solid #bdbdbd; background: #ffffff; color: #222;"
             >
         </form>
     </section>
@@ -146,12 +146,12 @@
             font-weight: 500;
         }
 
-        @media (max-width: 760px) {
+        @media (max-width: 992px) {
             .table { display: none; }
             .mobile-list { display: grid; gap: 12px; }
         }
 
-        @media (min-width: 761px) {
+        @media (min-width: 993px) {
             .mobile-list { display: none; }
             .table { display: table !important; }
         }

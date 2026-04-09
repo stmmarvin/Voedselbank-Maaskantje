@@ -32,53 +32,166 @@
         a { color: inherit; text-decoration: none; }
 
         .page {
-            max-width: 1120px;
+            max-width: 1240px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 20px 24px;
         }
 
-        .shell {
-            background: var(--panel);
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        .admin-navbar {
+            background: #ea580c;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
         }
 
-        .topbar {
+        .admin-navbar-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            min-height: 64px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 16px;
-            padding: 12px 16px;
-            border-bottom: none;
-            background: linear-gradient(135deg, #df7a17 0%, #f08a18 100%);
+            gap: 12px;
         }
 
-        .brand {
-            display: grid;
-            gap: 4px;
+        .admin-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            min-width: 0;
         }
 
-        .brand strong {
-            font-size: 1.1rem;
+        .admin-logo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-logo-circle {
+            width: 36px;
+            height: 36px;
+            background: #ffffff;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ea580c;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .admin-logo-text {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .admin-logo-text span {
+            color: #fdba74;
+        }
+
+        .admin-desktop-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            color: #ffedd5;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 120ms ease, color 120ms ease;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+            background: #c2410c;
+        }
+
+        .nav-link-active {
+            background: #c2410c;
             color: #ffffff;
         }
 
-        .brand span,
+        .admin-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: auto;
+        }
+
+        .admin-role {
+            background: #f97316;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 999px;
+        }
+
+        .admin-email {
+            color: #ffedd5;
+            font-size: 13px;
+        }
+
+        .admin-logout {
+            color: #fed7aa;
+            text-decoration: underline;
+            font-size: 13px;
+        }
+
+        .admin-logout:hover {
+            color: #ffffff;
+        }
+
+        .admin-mobile-toggle {
+            display: none;
+            border: 1px solid #fb923c;
+            color: #ffedd5;
+            background: transparent;
+            border-radius: 8px;
+            width: 38px;
+            height: 38px;
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .admin-mobile-menu {
+            display: none;
+            background: #c2410c;
+            padding: 10px 16px 14px;
+        }
+
+        .admin-mobile-menu.open {
+            display: block;
+        }
+
+        .admin-mobile-links {
+            display: grid;
+            gap: 6px;
+        }
+
+        .admin-mobile-links .nav-link {
+            display: block;
+        }
+
+        .admin-mobile-account {
+            border-top: 1px solid #ea580c;
+            margin-top: 10px;
+            padding-top: 10px;
+            display: grid;
+            gap: 8px;
+        }
+
         .section-subtitle,
         .muted {
             color: var(--muted);
-        }
-
-        .brand span {
-            color: #ffe8d1;
-        }
-
-        .nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
         }
 
         .badge,
@@ -93,16 +206,6 @@
             transition: background-color 120ms ease, border-color 120ms ease;
         }
 
-        .topbar .badge {
-            background: rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .topbar .badge:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
         .badge { padding: 4px 10px; background: #efefef; color: var(--text); }
         .button, .button-link { padding: 5px 12px; background: #efefef; color: var(--text); }
         .button:hover, .button-link:hover, .badge:hover { background: #e2e2e2; }
@@ -110,7 +213,7 @@
         .button-secondary { background: #efefef; color: var(--text); }
         .button-danger { background: #6f6f6f; color: #ffffff; border-color: #6f6f6f; }
 
-        main { padding: 16px; }
+        main { padding: 0; }
 
         .alert {
             margin-bottom: 16px;
@@ -241,43 +344,136 @@
             color: var(--muted);
         }
 
+        @media (max-width: 1200px) {
+            .admin-navbar-inner {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .admin-navbar-inner {
+                padding: 0 16px;
+            }
+
+            .admin-logo-text {
+                display: none;
+            }
+
+            .admin-desktop-links,
+            .admin-right {
+                display: none;
+            }
+
+            .admin-mobile-toggle {
+                display: block;
+            }
+
+            .page {
+                padding: 16px;
+            }
+        }
+
         @media (max-width: 860px) {
             .form-grid { grid-template-columns: 1fr; }
             .field { grid-template-columns: 1fr; }
 
-            .hero,
-            .topbar { flex-direction: column; align-items: flex-start; }
+            .hero { flex-direction: column; align-items: flex-start; }
+
+            .page {
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .admin-mobile-menu {
+                padding: 10px 12px 12px;
+            }
+
+            .hero h1,
+            .hero h2 {
+                font-size: 1.25rem;
+            }
+
+            .page {
+                padding: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="page">
-        <div class="shell">
-            <header class="topbar">
-                <div class="brand">
-                    <strong>Voedselbank</strong>
-                    <span>Leveranciersbeheer</span>
+    <nav class="admin-navbar">
+        <div class="admin-navbar-inner">
+            <div class="admin-left">
+                <a href="{{ route('leveranciers.index') }}" class="admin-logo-link">
+                    <span class="admin-logo-circle">VB</span>
+                    <span class="admin-logo-text">Voedselbank <span>Maaskantje</span></span>
+                </a>
+
+                <div class="admin-desktop-links">
+                    <a href="#" class="nav-link">Overzicht</a>
+                    <a href="#" class="nav-link">Informatie</a>
+                    <a href="#" class="nav-link">Voorraad</a>
+                    <a href="#" class="nav-link">Allergieen</a>
+                    <a href="{{ route('leveranciers.index') }}" class="nav-link nav-link-active">Leveranciers</a>
                 </div>
+            </div>
 
-                <nav class="nav">
-                    <a class="badge" href="{{ route('leveranciers.index') }}">Home</a>
-                    <a class="badge" href="#">Voorraad</a>
-                    <a class="badge" href="#">Instellingen</a>
-                </nav>
-            </header>
+            <div class="admin-right">
+                <span class="admin-role">Admin</span>
+                <span class="admin-email">Mohammed@gmail.com</span>
+                <a class="admin-logout" href="#">Uitloggen</a>
+            </div>
 
-            <main>
-                @if (session('status'))
-                    <div class="alert">{{ session('status') }}</div>
-                @endif
-
-                @if (session('error'))
-                    <div class="alert alert-error">{{ session('error') }}</div>
-                @endif
-
-                @yield('content')
-            </main>
+            <button type="button" class="admin-mobile-toggle" id="admin-mobile-toggle" aria-label="Menu openen" aria-expanded="false">
+                ☰
+            </button>
         </div>
+
+        <div class="admin-mobile-menu" id="admin-mobile-menu">
+            <div class="admin-mobile-links">
+                <a href="#" class="nav-link">Overzicht</a>
+                <a href="#" class="nav-link">Informatie</a>
+                <a href="#" class="nav-link">Voorraad</a>
+                <a href="#" class="nav-link">Allergieen</a>
+                <a href="{{ route('leveranciers.index') }}" class="nav-link nav-link-active">Leveranciers</a>
+            </div>
+
+            <div class="admin-mobile-account">
+                <span class="admin-email">Mohammed@gmail.com</span>
+                <a class="admin-logout" href="#">Uitloggen</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page">
+        <main>
+            @if (session('status'))
+                <div class="alert">{{ session('status') }}</div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-error">{{ session('error') }}</div>
+            @endif
+
+            @yield('content')
+        </main>
     </div>
+
+    <script>
+        (() => {
+            const toggleButton = document.getElementById('admin-mobile-toggle');
+            const mobileMenu = document.getElementById('admin-mobile-menu');
+
+            if (!toggleButton || !mobileMenu) {
+                return;
+            }
+
+            toggleButton.addEventListener('click', () => {
+                const isOpen = mobileMenu.classList.toggle('open');
+                toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                toggleButton.textContent = isOpen ? '✕' : '☰';
+            });
+        })();
+    </script>
 </body>
 </html>
