@@ -18,18 +18,18 @@ class LeverancierController extends Controller
     {
         $zoek = trim((string) $request->query('zoek', ''));
 
-        $leveranciers = Schema::hasTable('leveranciers')
+        $leveranciers = Schema::hasTable('Leverancier')
             ? Leverancier::query()
                 ->when($zoek !== '', function ($query) use ($zoek) {
                     $query->where(function ($nestedQuery) use ($zoek) {
                         $nestedQuery
-                            ->where('bedrijfsnaam', 'like', "%{$zoek}%")
-                            ->orWhere('contact_naam', 'like', "%{$zoek}%")
-                            ->orWhere('contact_email', 'like', "%{$zoek}%")
-                            ->orWhere('adres', 'like', "%{$zoek}%");
+                            ->where('Bedrijfsnaam', 'like', "%{$zoek}%")
+                            ->orWhere('ContactNaam', 'like', "%{$zoek}%")
+                            ->orWhere('ContactEmail', 'like', "%{$zoek}%")
+                            ->orWhere('Adres', 'like', "%{$zoek}%");
                     });
                 })
-                ->latest()
+                ->orderByDesc('Id')
                 ->get()
             : collect();
 
@@ -115,8 +115,8 @@ class LeverancierController extends Controller
     private function validateLeverancier(Request $request, ?int $id = null): array
     {
         $uniqueRule = $id === null 
-            ? 'unique:leveranciers,bedrijfsnaam'
-            : 'unique:leveranciers,bedrijfsnaam,' . $id;
+            ? 'unique:Leverancier,Bedrijfsnaam'
+            : 'unique:Leverancier,Bedrijfsnaam,' . $id . ',Id';
 
         return $request->validate([
             'bedrijfsnaam' => ['required', 'string', 'max:100', $uniqueRule],
