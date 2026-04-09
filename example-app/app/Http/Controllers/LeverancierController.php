@@ -6,6 +6,7 @@ use App\Models\Leverancier;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
 
 class LeverancierController extends Controller
@@ -17,18 +18,20 @@ class LeverancierController extends Controller
     {
         $zoek = trim((string) $request->query('zoek', ''));
 
-        $leveranciers = Leverancier::query()
-            ->when($zoek !== '', function ($query) use ($zoek) {
-                $query->where(function ($nestedQuery) use ($zoek) {
-                    $nestedQuery
-                        ->where('bedrijfsnaam', 'like', "%{$zoek}%")
-                        ->orWhere('contact_naam', 'like', "%{$zoek}%")
-                        ->orWhere('contact_email', 'like', "%{$zoek}%")
-                        ->orWhere('adres', 'like', "%{$zoek}%");
-                });
-            })
-            ->latest()
-            ->get();
+        $leveranciers = Schema::hasTable('leveranciers')
+            ? Leverancier::query()
+                ->when($zoek !== '', function ($query) use ($zoek) {
+                    $query->where(function ($nestedQuery) use ($zoek) {
+                        $nestedQuery
+                            ->where('bedrijfsnaam', 'like', "%{$zoek}%")
+                            ->orWhere('contact_naam', 'like', "%{$zoek}%")
+                            ->orWhere('contact_email', 'like', "%{$zoek}%")
+                            ->orWhere('adres', 'like', "%{$zoek}%");
+                    });
+                })
+                ->latest()
+                ->get()
+            : collect();
 
         return view('leveranciers.index', compact('leveranciers', 'zoek'));
     }
