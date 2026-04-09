@@ -196,11 +196,11 @@
                 </div>
             </div>
             <div class="nav-links">
-                <span>Klant registeren</span>
-                <span>Leverancier registeren</span>
-                <span>Allergie overzicht</span>
-                <span>Voorraad overzicht</span>
-                <span>Voedselpakketen aanmaken</span>
+                <span>Klant<br>registeren</span>
+                <span>Leverancier<br>registeren</span>
+                <span>Allergie<br>overzicht</span>
+                <span>Voorraad<br>overzicht</span>
+                <span>Voedselpakketen<br>aanmaken</span>
             </div>
         </nav>
 
