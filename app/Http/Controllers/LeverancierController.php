@@ -91,7 +91,7 @@ class LeverancierController extends Controller
                 ->with('error', 'Leverancier kan niet worden bewerkt omdat er een actieve bestelling aan gekoppeld is');
         }
 
-        $data = $this->validateLeverancier($request, $leverancier->id);
+        $data = $this->validateLeverancier($request, $leverancier->getKey());
         $this->normalizeDate($data);
 
         $leverancier->update($data);
