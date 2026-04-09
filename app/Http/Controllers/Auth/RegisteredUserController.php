@@ -3,49 +3,50 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Inlog;
+use App\Models\Klant;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
     public function create(): View
     {
         return view('auth.register');
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws ValidationException
-     */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'GezinsNaam'  => ['required', 'string', 'max:100'],
+            'Email'       => ['required', 'string', 'email', 'max:100', 'unique:Inlog,Email'],
+            'Adres'       => ['required', 'string', 'max:255'],
+            'Telefoon'    => ['nullable', 'string', 'max:15'],
+            'Wachtwoord'  => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+        $inlog = Inlog::create([
+            'Email'      => $request->Email,
+            'Wachtwoord' => Hash::make($request->Wachtwoord),
+            'Rol'        => 'klant',
         ]);
 
-        event(new Registered($user));
+        Klant::create([
+            'Inlog_Id'   => $inlog->Id,
+            'GezinsNaam' => $request->GezinsNaam,
+            'Adres'      => $request->Adres,
+            'Telefoon'   => $request->Telefoon,
+            'Email'      => $request->Email,
+        ]);
 
-        Auth::login($user);
+        event(new Registered($inlog));
+        Auth::login($inlog);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->route('dashboard');
     }
 }

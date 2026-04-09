@@ -1,52 +1,82 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <div class="mb-6">
+        <h2 class="text-xl font-bold text-orange-700">Account aanmaken</h2>
+        <p class="text-sm text-gray-500 mt-1">Registreer u als klant bij Voedselbank Maaskantje.</p>
+    </div>
+
+    <form method="POST" action="{{ route('register') }}" class="space-y-4">
         @csrf
 
-        <!-- Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <label for="GezinsNaam" class="label">Gezinsnaam</label>
+            <input id="GezinsNaam" type="text" name="GezinsNaam"
+                value="{{ old('GezinsNaam') }}" required
+                class="input-field @error('GezinsNaam') border-red-400 @enderror"
+                placeholder="Familie De Vries" />
+            @error('GezinsNaam')
+                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div>
+            <label for="Email" class="label">E-mailadres</label>
+            <input id="Email" type="email" name="Email"
+                value="{{ old('Email') }}" required
+                class="input-field @error('Email') border-red-400 @enderror"
+                placeholder="uw@email.nl" />
+            @error('Email')
+                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div>
+            <label for="Adres" class="label">Adres</label>
+            <input id="Adres" type="text" name="Adres"
+                value="{{ old('Adres') }}" required
+                class="input-field @error('Adres') border-red-400 @enderror"
+                placeholder="Straatnaam 1, 5388 AB Maaskantje" />
+            @error('Adres')
+                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        <div>
+            <label for="Telefoon" class="label">Telefoon <span class="text-gray-400 text-xs">(optioneel)</span></label>
+            <input id="Telefoon" type="text" name="Telefoon"
+                value="{{ old('Telefoon') }}"
+                class="input-field @error('Telefoon') border-red-400 @enderror"
+                placeholder="06-12345678" />
+            @error('Telefoon')
+                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+            @enderror
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
+        <div>
+            <label for="Wachtwoord" class="label">Wachtwoord</label>
+            <input id="Wachtwoord" type="password" name="Wachtwoord"
+                required autocomplete="new-password"
+                class="input-field @error('Wachtwoord') border-red-400 @enderror"
+                placeholder="••••••••" />
+            @error('Wachtwoord')
+                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+            @enderror
         </div>
+
+        <div>
+            <label for="Wachtwoord_confirmation" class="label">Bevestig wachtwoord</label>
+            <input id="Wachtwoord_confirmation" type="password" name="Wachtwoord_confirmation"
+                required autocomplete="new-password"
+                class="input-field"
+                placeholder="••••••••" />
+        </div>
+
+        <button type="submit" class="btn-primary w-full text-center">
+            Account aanmaken
+        </button>
+
+        <p class="text-center text-sm text-gray-500">
+            Al een account?
+            <a href="{{ route('login') }}" class="text-orange-600 font-semibold hover:underline">Inloggen</a>
+        </p>
     </form>
 </x-guest-layout>

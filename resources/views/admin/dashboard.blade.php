@@ -1,34 +1,22 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-bold text-orange-700">Mijn Overzicht</h2>
+        <div class="flex items-center gap-3">
+            <span class="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full uppercase">Admin</span>
+            <h2 class="text-xl font-bold text-orange-700">Beheerpaneel</h2>
+        </div>
     </x-slot>
 
     <div class="py-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
 
             <!-- Welkom bericht -->
-            <div class="card border-l-4 border-orange-600">
-                <h3 class="font-semibold text-orange-700 text-lg">Welkom bij Voedselbank Maaskantje</h3>
+            <div class="card border-l-4 border-orange-500">
+                <h3 class="font-semibold text-orange-700 text-lg">Welkom, beheerder</h3>
                 <p class="text-gray-600 text-sm mt-1">
-                    U bent ingelogd als <strong>{{ Auth::user()->isAdmin() ? 'administrator' : 'klant' }}</strong>.
+                    U bent ingelogd als <strong>administrator</strong> van Voedselbank Maaskantje.
                 </p>
                 <p class="text-xs text-gray-400 mt-2">Ingelogd als: {{ Auth::user()->Email }}</p>
             </div>
-
-            @if(Auth::user()->isAdmin())
-                <!-- Admin Paneel knop -->
-                <div class="card bg-gradient-to-r from-orange-500 to-orange-600 text-white border-0">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="font-bold text-lg">⚙️ Beheerderspaneel</h3>
-                            <p class="text-orange-100 text-sm mt-1">Toegang tot het admin paneel</p>
-                        </div>
-                        <a href="{{ route('admin.dashboard') }}" class="bg-white text-orange-600 font-semibold px-6 py-3 rounded-lg hover:bg-orange-50 transition-colors shadow-lg">
-                            Open Admin Paneel →
-                        </a>
-                    </div>
-                </div>
-            @endif
 
             <!-- Tabjes grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
