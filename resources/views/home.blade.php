@@ -198,8 +198,8 @@
             <div class="nav-links">
                 <span>Klant registeren</span>
                 <span>Leverancier registeren</span>
-                <span>Allergie toevoegen</span>
-                <span>Voorraad toevoegen</span>
+                <span>Allergie overzicht</span>
+                <span>Voorraad overzicht</span>
                 <span>Voedselpakketen aanmaken</span>
             </div>
         </nav>
