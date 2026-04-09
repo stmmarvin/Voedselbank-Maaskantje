@@ -11,10 +11,15 @@ Route::get('/dashboard', fn() => view('dashboard'))
     ->middleware('auth')
     ->name('dashboard');
 
-// Allergieën pagina
-Route::get('/allergien', fn() => view('allergien'))
-    ->middleware('auth')
-    ->name('allergien');
+// Allergieën routes (voor klanten en admins)
+Route::middleware('auth')->group(function () {
+    Route::get('/allergie-overzicht', [App\Http\Controllers\AllergieController::class, 'overzicht'])->name('allergie.overzicht');
+    Route::get('/allergie-toevoegen', [App\Http\Controllers\AllergieController::class, 'toevoegen'])->name('allergie.toevoegen');
+    Route::post('/allergie-toevoegen', [App\Http\Controllers\AllergieController::class, 'toevoegen']);
+    Route::get('/allergie-bewerken', [App\Http\Controllers\AllergieController::class, 'bewerken'])->name('allergie.bewerken');
+    Route::post('/allergie-bewerken', [App\Http\Controllers\AllergieController::class, 'bewerken']);
+    Route::post('/allergie-verwijderen', [App\Http\Controllers\AllergieController::class, 'verwijderen'])->name('allergie.verwijderen');
+});
 
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
