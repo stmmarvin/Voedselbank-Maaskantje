@@ -11,6 +11,11 @@ Route::get('/dashboard', fn() => view('dashboard'))
     ->middleware('auth')
     ->name('dashboard');
 
+// Allergieën pagina
+Route::get('/allergien', fn() => view('allergien'))
+    ->middleware('auth')
+    ->name('allergien');
+
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
