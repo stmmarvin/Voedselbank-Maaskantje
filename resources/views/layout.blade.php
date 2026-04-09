@@ -14,60 +14,95 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            padding: 20px;
+        }
+        
+        .top-bar {
+            background-color: #ff6600;
+            color: white;
+            padding: 8px 40px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+        }
+        
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .top-bar a:hover {
+            text-decoration: underline;
+        }
+        
+        .main-nav {
+            background-color: white;
+            border-bottom: 2px solid #ddd;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 0;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #ff6600;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo-text {
+            color: #ff6600;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            flex: 1;
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            padding: 20px 0;
+            display: block;
+            font-size: 15px;
+        }
+        
+        .nav-links a:hover {
+            color: #ff6600;
+            border-bottom: 3px solid #ff6600;
+        }
+        
+        .nav-links a.active {
+            color: #ff6600;
+            border-bottom: 3px solid #ff6600;
         }
         
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 30px auto;
             background: white;
-            border: 2px solid #ddd;
+            border: 1px solid #ddd;
             border-radius: 8px;
             overflow: hidden;
-        }
-        
-        .header {
-            background-color: #f08a18;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .header h1 {
-            font-size: 18px;
-            font-weight: normal;
-        }
-        
-        .menu-icon {
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        
-        .menu-icon span {
-            width: 25px;
-            height: 3px;
-            background: white;
-        }
-        
-        nav {
-            background: #f9f9f9;
-            border-bottom: 1px solid #ddd;
-            padding: 10px 20px;
-        }
-        
-        nav a {
-            color: #333;
-            text-decoration: none;
-            margin-right: 20px;
-            font-size: 14px;
-        }
-        
-        nav a:hover {
-            color: #ff6600;
         }
         
         .content {
@@ -163,6 +198,26 @@
         }
         
         @media (max-width: 768px) {
+            .top-bar {
+                padding: 8px 20px;
+            }
+            
+            .main-nav {
+                padding: 0 20px;
+                flex-wrap: wrap;
+            }
+            
+            .nav-links {
+                width: 100%;
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .nav-links a {
+                padding: 15px 0;
+                border-bottom: 1px solid #eee;
+            }
+            
             .container {
                 margin: 10px;
             }
@@ -182,23 +237,26 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Voedselbank</h1>
-            <div class="menu-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+    <div class="top-bar">
+        <span>Mohammed@gmail.com</span>
+        <a href="#">Uitloggen</a>
+    </div>
+    
+    <nav class="main-nav">
+        <div class="logo">
+            <div class="logo-icon">🛒</div>
+            <span class="logo-text">Mijn Overzicht</span>
         </div>
         
-        <nav>
-            <a href="{{ route('overzicht') }}">Home</a>
-            <a href="{{ route('overzicht') }}">Voorraad</a>
-            <a href="#">Rapporten</a>
-            <a href="#">Instellingen</a>
-        </nav>
-        
+        <ul class="nav-links">
+            <li><a href="#" class="{{ request()->is('informatie') ? 'active' : '' }}">Informatie</a></li>
+            <li><a href="{{ route('overzicht') }}" class="{{ request()->is('/') || request()->is('overzicht') ? 'active' : '' }}">Voorraad</a></li>
+            <li><a href="#" class="{{ request()->is('allergieen') ? 'active' : '' }}">Allergieën</a></li>
+            <li><a href="#" class="{{ request()->is('leveranciers') ? 'active' : '' }}">Leveranciers</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
         <div class="content">
             @yield('content')
         </div>
