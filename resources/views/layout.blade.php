@@ -21,10 +21,40 @@
             color: white;
             padding: 8px 40px;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+        
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .top-bar-right {
+            display: flex;
             align-items: center;
             gap: 20px;
-            font-size: 14px;
+        }
+        
+        .logo-icon {
+            width: 35px;
+            height: 35px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff6600;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .logo-text {
+            color: white;
+            font-size: 16px;
+            font-weight: normal;
         }
         
         .top-bar a {
@@ -38,62 +68,43 @@
         
         .main-nav {
             background-color: white;
-            border-bottom: 2px solid #ddd;
+            border-bottom: 1px solid #e0e0e0;
             padding: 0 40px;
             display: flex;
             align-items: center;
-            gap: 40px;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px 0;
-        }
-        
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background-color: #ff6600;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        
-        .logo-text {
-            color: #ff6600;
-            font-size: 18px;
-            font-weight: bold;
         }
         
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 35px;
             list-style: none;
             flex: 1;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links li {
+            margin: 0;
         }
         
         .nav-links a {
             color: #333;
             text-decoration: none;
-            padding: 20px 0;
+            padding: 18px 0;
             display: block;
-            font-size: 15px;
+            font-size: 14px;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
         }
         
         .nav-links a:hover {
             color: #ff6600;
-            border-bottom: 3px solid #ff6600;
+            border-bottom-color: #ff6600;
         }
         
         .nav-links a.active {
             color: #ff6600;
-            border-bottom: 3px solid #ff6600;
+            border-bottom-color: #ff6600;
         }
         
         .container {
@@ -238,21 +249,22 @@
 </head>
 <body>
     <div class="top-bar">
-        <span>Mohammed@gmail.com</span>
-        <a href="#">Uitloggen</a>
-    </div>
-    
-    <nav class="main-nav">
-        <div class="logo">
+        <div class="top-bar-left">
             <div class="logo-icon">🛒</div>
             <span class="logo-text">Mijn Overzicht</span>
         </div>
-        
+        <div class="top-bar-right">
+            <span>Mohammed@gmail.com</span>
+            <a href="#">Uitloggen</a>
+        </div>
+    </div>
+    
+    <nav class="main-nav">
         <ul class="nav-links">
-            <li><a href="#" class="{{ request()->is('informatie') ? 'active' : '' }}">Informatie</a></li>
-            <li><a href="{{ route('overzicht') }}" class="{{ request()->is('/') || request()->is('overzicht') ? 'active' : '' }}">Voorraad</a></li>
-            <li><a href="#" class="{{ request()->is('allergieen') ? 'active' : '' }}">Allergieën</a></li>
-            <li><a href="#" class="{{ request()->is('leveranciers') ? 'active' : '' }}">Leveranciers</a></li>
+            <li><a href="#">Informatie</a></li>
+            <li><a href="{{ route('overzicht') }}" class="{{ request()->is('/') ? 'active' : '' }}">Voorraad</a></li>
+            <li><a href="#">Allergieën</a></li>
+            <li><a href="#">Leveranciers</a></li>
         </ul>
     </nav>
     
