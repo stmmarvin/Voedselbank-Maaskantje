@@ -52,4 +52,9 @@ class Leverancier extends Model
 
         return parent::setAttribute($key, $value);
     }
+
+    public function voorraad()
+    {
+        return $this->hasMany(Voorraad::class);
+    }
 }
