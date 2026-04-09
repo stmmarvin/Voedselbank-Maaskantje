@@ -18,20 +18,24 @@ class LeverancierController extends Controller
     {
         $zoek = trim((string) $request->query('zoek', ''));
 
-        $leveranciers = Schema::hasTable('Leverancier')
-            ? Leverancier::query()
-                ->when($zoek !== '', function ($query) use ($zoek) {
-                    $query->where(function ($nestedQuery) use ($zoek) {
-                        $nestedQuery
-                            ->where('Bedrijfsnaam', 'like', "%{$zoek}%")
-                            ->orWhere('ContactNaam', 'like', "%{$zoek}%")
-                            ->orWhere('ContactEmail', 'like', "%{$zoek}%")
-                            ->orWhere('Adres', 'like', "%{$zoek}%");
-                    });
-                })
-                ->orderByDesc('Id')
-                ->get()
-            : collect();
+        try {
+            $leveranciers = Schema::hasTable('Leverancier')
+                ? Leverancier::query()
+                    ->when($zoek !== '', function ($query) use ($zoek) {
+                        $query->where(function ($nestedQuery) use ($zoek) {
+                            $nestedQuery
+                                ->where('Bedrijfsnaam', 'like', "%{$zoek}%")
+                                ->orWhere('ContactNaam', 'like', "%{$zoek}%")
+                                ->orWhere('ContactEmail', 'like', "%{$zoek}%")
+                                ->orWhere('Adres', 'like', "%{$zoek}%");
+                        });
+                    })
+                    ->orderByDesc('Id')
+                    ->get()
+                : collect();
+        } catch (\Throwable $exception) {
+            $leveranciers = collect();
+        }
 
         return view('leveranciers.index', compact('leveranciers', 'zoek'));
     }
