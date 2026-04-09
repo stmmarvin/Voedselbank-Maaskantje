@@ -1,19 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\VoorraadController;
 
-Route::get('/', function () {
-    return view('overzicht');
-})->name('overzicht');
-
-Route::get('/toevoegen', function () {
-    return view('toevoegen');
-})->name('toevoegen');
-
-Route::get('/verwijderen', function () {
-    return view('verwijderen');
-})->name('verwijderen');
-
-Route::get('/bewerken', function () {
-    return view('bewerken');
-})->name('bewerken');
+Route::get('/', [VoorraadController::class, 'index'])->name('overzicht');
+Route::get('/toevoegen', [VoorraadController::class, 'create'])->name('toevoegen');
+Route::post('/toevoegen', [VoorraadController::class, 'store'])->name('voorraad.store');
+Route::get('/bewerken/{id}', [VoorraadController::class, 'edit'])->name('bewerken');
+Route::post('/bewerken/{id}', [VoorraadController::class, 'update'])->name('voorraad.update');
+Route::get('/verwijderen/{id}', [VoorraadController::class, 'destroy'])->name('verwijderen');

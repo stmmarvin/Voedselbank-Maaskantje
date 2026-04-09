@@ -5,9 +5,15 @@
 @section('content')
     <h2>Voorraad Overzicht</h2>
     
+    @if(session('success'))
+        <div style="background: #d4edda; color: #155724; padding: 10px; border-radius: 4px; margin-bottom: 20px;">
+            {{ session('success') }}
+        </div>
+    @endif
+    
     <div class="search-bar">
-        <input type="text" placeholder="Zoeken...">
-        <button>Zoek</button>
+        <input type="text" placeholder="Zoeken..." id="searchInput">
+        <button onclick="searchProducts()">Zoek</button>
     </div>
     
     <table>
@@ -16,36 +22,43 @@
                 <th>Product</th>
                 <th>Categorie</th>
                 <th>Aantal</th>
-                <th>Houdbaar tot</th>
+                <th>Streepjescode</th>
+                <th>Acties</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="productTable">
+            @forelse($voorraad as $product)
             <tr>
-                <td>Productnaam</td>
-                <td>Categorie selecteren</td>
-                <td>Aantal</td>
-                <td>Houdbaar tot</td>
+                <td>{{ $product->product_naam }}</td>
+                <td>{{ $product->categorie }}</td>
+                <td>{{ $product->aantal }}</td>
+                <td>{{ $product->streepjescode }}</td>
+                <td>
+                    <a href="{{ route('bewerken', $product->id) }}" style="color: #ff6600; text-decoration: none; margin-right: 10px;">Bewerken</a>
+                    <a href="{{ route('verwijderen', $product->id) }}" style="color: #ff6600; text-decoration: none;" onclick="return confirm('Weet je zeker dat je dit product wilt verwijderen?')">Verwijderen</a>
+                </td>
             </tr>
+            @empty
             <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td colspan="5" style="text-align: center; color: #999;">Geen producten gevonden</td>
             </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
+            @endforelse
         </tbody>
     </table>
     
     <div class="form-actions">
-        <button class="btn" onclick="window.location='{{ route('toevoegen') }}'">Opslaan</button>
+        <button class="btn" onclick="window.location='{{ route('toevoegen') }}'">Nieuw Product</button>
     </div>
     
-    <div class="pagination">
-        Vorige <a href="#">1</a> <a href="#">2</a> <a href="#">3</a> Volgende
-    </div>
+    <script>
+        function searchProducts() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#productTable tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(input) ? '' : 'none';
+            });
+        }
+    </script>
 @endsection
