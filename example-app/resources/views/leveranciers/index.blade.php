@@ -32,6 +32,8 @@
                     <th>Naam</th>
                     <th>Contact</th>
                     <th>Locatie</th>
+                    <th>Status</th>
+                    <th>Eerstvolgende levering</th>
                     <th>Acties</th>
                 </tr>
             </thead>
@@ -47,19 +49,33 @@
                         </td>
                         <td>{{ $leverancier->adres }}</td>
                         <td>
+                            @if ($leverancier->eerstvolgende_levering)
+                                <span class="badge" style="background: #fff3cd; color: #856404;">Bezig</span>
+                            @else
+                                <span class="badge" style="background: #d4edda; color: #155724;">Inactief</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($leverancier->eerstvolgende_levering)
+                                {{ $leverancier->eerstvolgende_levering->format('d-m-Y') }}
+                            @else
+                                <span class="muted">—</span>
+                            @endif
+                        </td>
+                        <td>
                             <div class="actions">
                                 <a class="button button-secondary" href="{{ route('leveranciers.edit', $leverancier) }}">Bewerken</a>
-                                <form method="POST" action="{{ route('leveranciers.destroy', $leverancier) }}" onsubmit="return confirm('Weet je zeker dat je deze leverancier wilt verwijderen?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="button button-danger" type="submit">Verwijder</button>
-                                </form>
+                                    <form method="POST" action="{{ route('leveranciers.destroy', $leverancier) }}" onsubmit="return confirm('Weet je zeker dat je deze leverancier wilt verwijderen?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="button button-danger" type="submit">Verwijder</button>
+                                    </form>
                             </div>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4">
+                        <td colspan="6">
                             <div class="empty">
                                 Nog geen leveranciers gevonden.
                             </div>
@@ -74,13 +90,21 @@
                 <div class="mobile-item">
                     <div class="mobile-title">{{ $leverancier->bedrijfsnaam }}</div>
                     <div class="muted">{{ $leverancier->contact_naam }} | {{ $leverancier->adres }}</div>
+                    <div style="margin-top: 8px;">
+                        @if ($leverancier->eerstvolgende_levering)
+                            <div><strong>Status:</strong> <span class="badge" style="background: #fff3cd; color: #856404;">Bezig</span></div>
+                            <div style="margin-top: 4px;"><strong>Levering:</strong> {{ $leverancier->eerstvolgende_levering->format('d-m-Y') }}</div>
+                        @else
+                            <div><strong>Status:</strong> <span class="badge" style="background: #d4edda; color: #155724;">Inactief</span></div>
+                        @endif
+                    </div>
                     <div class="actions" style="margin-top: 12px;">
                         <a class="button button-secondary" href="{{ route('leveranciers.edit', $leverancier) }}">Bewerken</a>
-                        <form method="POST" action="{{ route('leveranciers.destroy', $leverancier) }}" onsubmit="return confirm('Weet je zeker dat je deze leverancier wilt verwijderen?');">
-                            @csrf
-                            @method('DELETE')
-                            <button class="button button-danger" type="submit">Verwijder</button>
-                        </form>
+                            <form method="POST" action="{{ route('leveranciers.destroy', $leverancier) }}" onsubmit="return confirm('Weet je zeker dat je deze leverancier wilt verwijderen?');">
+                                @csrf
+                                @method('DELETE')
+                                <button class="button button-danger" type="submit">Verwijder</button>
+                            </form>
                     </div>
                 </div>
             @empty
@@ -98,6 +122,14 @@
 
         .mobile-item:last-child { border-bottom: 0; }
         .mobile-title { font-weight: 700; margin-bottom: 6px; }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
 
         @media (max-width: 760px) {
             .table { display: none; }

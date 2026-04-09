@@ -51,7 +51,7 @@ class LeverancierController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $data = $this->validateLeverancier($request);
+        $data = $this->validateLeverancier($request, null);
         $this->normalizeDate($data);
 
         Leverancier::create($data);
@@ -80,7 +80,7 @@ class LeverancierController extends Controller
      */
     public function update(Request $request, Leverancier $leverancier): RedirectResponse
     {
-        $data = $this->validateLeverancier($request);
+        $data = $this->validateLeverancier($request, $leverancier->id);
         $this->normalizeDate($data);
 
         $leverancier->update($data);
@@ -93,6 +93,10 @@ class LeverancierController extends Controller
      */
     public function destroy(Leverancier $leverancier): RedirectResponse
     {
+        if ($leverancier->eerstvolgende_levering) {
+            return redirect()->route('leveranciers.index')->with('error', 'Deze leverancier kan niet verwijderd worden omdat deze nog bezig is met een bezorging.');
+        }
+
         $leverancier->delete();
 
         return redirect()->route('leveranciers.index')->with('status', 'Leverancier succesvol verwijderd');
@@ -101,10 +105,14 @@ class LeverancierController extends Controller
     /**
      * Validate supplier input.
      */
-    private function validateLeverancier(Request $request): array
+    private function validateLeverancier(Request $request, ?int $id = null): array
     {
+        $uniqueRule = $id === null 
+            ? 'unique:leveranciers,bedrijfsnaam'
+            : 'unique:leveranciers,bedrijfsnaam,' . $id;
+
         return $request->validate([
-            'bedrijfsnaam' => ['required', 'string', 'max:100'],
+            'bedrijfsnaam' => ['required', 'string', 'max:100', $uniqueRule],
             'adres' => ['required', 'string', 'max:255'],
             'contact_naam' => ['required', 'string', 'max:100'],
             'contact_email' => ['required', 'email', 'max:100'],

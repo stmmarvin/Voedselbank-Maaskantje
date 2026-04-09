@@ -12,11 +12,11 @@
             --text: #222222;
             --muted: #666666;
             --line: #c8c8c8;
-            --accent: #7d7d7d;
-            --accent-strong: #5f5f5f;
+            --accent: #ff9d3f;
+            --accent-strong: #ff8c1a;
             --success: #5f5f5f;
-            --danger: #7a7a7a;
-            --warning: #7a7a7a;
+            --danger: #d9534f;
+            --warning: #f0ad4e;
         }
 
         * { box-sizing: border-box; }
@@ -40,7 +40,7 @@
         .shell {
             background: var(--panel);
             border: 1px solid var(--line);
-            border-radius: 2px;
+            border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
         }
@@ -51,8 +51,8 @@
             align-items: center;
             gap: 16px;
             padding: 12px 16px;
-            border-bottom: 1px solid var(--line);
-            background: #f1f1f1;
+            border-bottom: none;
+            background: linear-gradient(135deg, #ff9d3f 0%, #ff8c1a 100%);
         }
 
         .brand {
@@ -62,12 +62,17 @@
 
         .brand strong {
             font-size: 1.1rem;
+            color: #ffffff;
         }
 
         .brand span,
         .section-subtitle,
         .muted {
             color: var(--muted);
+        }
+
+        .brand span {
+            color: #ffe8d1;
         }
 
         .nav {
@@ -82,10 +87,20 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            border-radius: 2px;
+            border-radius: 8px;
             font-weight: 400;
             border: 1px solid var(--line);
             transition: background-color 120ms ease, border-color 120ms ease;
+        }
+
+        .topbar .badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .topbar .badge:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .badge { padding: 4px 10px; background: #efefef; color: var(--text); }
@@ -100,10 +115,17 @@
         .alert {
             margin-bottom: 16px;
             padding: 10px 12px;
-            border-radius: 2px;
+            border-radius: 8px;
             border: 1px solid var(--line);
-            background: #fafafa;
-            color: var(--text);
+            background: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .alert.alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
         }
 
         .grid {
@@ -130,7 +152,7 @@
 
         .panel {
             border: 1px solid var(--line);
-            border-radius: 2px;
+            border-radius: 8px;
             overflow: hidden;
             background: var(--panel);
         }
@@ -186,7 +208,7 @@
         .field textarea {
             width: 100%;
             padding: 4px 8px;
-            border-radius: 2px;
+            border-radius: 6px;
             border: 1px solid var(--line);
             background: #ffffff;
             color: var(--text);
@@ -238,14 +260,19 @@
                 </div>
 
                 <nav class="nav">
-                    <a class="badge" href="{{ route('leveranciers.index') }}">Overzicht</a>
-                    <a class="badge" href="{{ route('leveranciers.create') }}">Leverancier toevoegen</a>
+                    <a class="badge" href="{{ route('leveranciers.index') }}">🏠 Home</a>
+                    <a class="badge" href="#">📦 Voorraad</a>
+                    <a class="badge" href="#">⚙️ Instellingen</a>
                 </nav>
             </header>
 
             <main>
                 @if (session('status'))
                     <div class="alert">{{ session('status') }}</div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-error">{{ session('error') }}</div>
                 @endif
 
                 @yield('content')
