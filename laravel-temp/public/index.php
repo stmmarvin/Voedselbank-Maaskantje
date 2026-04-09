@@ -48,43 +48,38 @@ function envValue(array $env, string $key, string $default = ''): string
 
 function fetchAllergyOverview(array $env): array
 {
-    $host = envValue($env, 'DB_HOST', '127.0.0.1');
-    $port = envValue($env, 'DB_PORT', '3306');
-    $database = envValue($env, 'DB_DATABASE', 'VoedselbankSql_dag2');
-    $username = envValue($env, 'DB_USERNAME', 'root');
-    $password = envValue($env, 'DB_PASSWORD', '');
-
-    $dsn = "mysql:host={$host};port={$port};dbname={$database};charset=utf8mb4";
-
-    $pdo = new PDO($dsn, $username, $password, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ]);
+    $pdo = createPdo($env);
 
     $rows = $pdo->query(
         'SELECT
+            a.Id AS allergie_id,
+            a.Naam AS AllergieNaam,
+            COALESCE(a.Ernst, "Niet opgegeven") AS Ernst,
             k.Id AS klant_id,
             k.GezinsNaam,
             k.Email,
-            k.SpecifiekeWensen,
-            a.Naam AS AllergieNaam,
-            COALESCE(a.Ernst, "Niet opgegeven") AS Ernst
-        FROM Klant_Allergie ka
-        INNER JOIN Klant k ON k.Id = ka.Klant_Id
-        INNER JOIN Allergie a ON a.Id = ka.Allergie_Id
-        ORDER BY k.GezinsNaam ASC, a.Naam ASC'
+            k.SpecifiekeWensen
+        FROM Allergie a
+        LEFT JOIN Klant_Allergie ka ON ka.Allergie_Id = a.Id
+        LEFT JOIN Klant k ON k.Id = ka.Klant_Id
+        ORDER BY a.Naam ASC, k.GezinsNaam ASC'
     )->fetchAll();
 
     $uniqueCustomers = [];
+    $uniqueAllergies = [];
 
     foreach ($rows as $row) {
-        $uniqueCustomers[$row['klant_id']] = true;
+        if (! empty($row['klant_id'])) {
+            $uniqueCustomers[$row['klant_id']] = true;
+        }
+
+        $uniqueAllergies[$row['allergie_id']] = true;
     }
 
     return [
         'rows' => $rows,
         'customer_count' => count($uniqueCustomers),
-        'allergy_count' => count($rows),
+        'allergy_count' => count($uniqueAllergies),
     ];
 }
 

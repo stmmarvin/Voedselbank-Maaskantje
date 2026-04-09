@@ -531,9 +531,9 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Klant</th>
                                     <th>Allergie</th>
                                     <th>Ernst</th>
+                                    <th>Klant</th>
                                     <th>Email</th>
                                     <th>Specifieke wensen</th>
                                 </tr>
@@ -541,13 +541,19 @@
                             <tbody>
                                 <?php foreach ($allergyRows as $row): ?>
                                     <tr>
-                                        <td>
-                                            <div class="allergy-name"><?= htmlspecialchars($row['GezinsNaam'], ENT_QUOTES, 'UTF-8') ?></div>
-                                            <div>Klantnummer: KL-<?= str_pad((string) $row['klant_id'], 3, '0', STR_PAD_LEFT) ?></div>
-                                        </td>
                                         <td><span class="meta"><?= htmlspecialchars($row['AllergieNaam'], ENT_QUOTES, 'UTF-8') ?></span></td>
                                         <td><?= htmlspecialchars($row['Ernst'], ENT_QUOTES, 'UTF-8') ?></td>
-                                        <td><?= htmlspecialchars($row['Email'], ENT_QUOTES, 'UTF-8') ?></td>
+                                        <td>
+                                            <?php if (! empty($row['GezinsNaam'])): ?>
+                                                <div class="allergy-name"><?= htmlspecialchars($row['GezinsNaam'], ENT_QUOTES, 'UTF-8') ?></div>
+                                                <div>Klantnummer: KL-<?= str_pad((string) $row['klant_id'], 3, '0', STR_PAD_LEFT) ?></div>
+                                            <?php else: ?>
+                                                <span class="empty-state" style="margin:0;padding:8px 10px;display:inline-flex;">Nog niet gekoppeld</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <?= htmlspecialchars($row['Email'] ?: 'Nog niet gekoppeld', ENT_QUOTES, 'UTF-8') ?>
+                                        </td>
                                         <td>
                                             <?= htmlspecialchars($row['SpecifiekeWensen'] ?: 'Geen extra wensen opgegeven', ENT_QUOTES, 'UTF-8') ?>
                                         </td>
