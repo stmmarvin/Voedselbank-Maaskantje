@@ -32,7 +32,7 @@ const foodEmojis = ['🍎', '🥖', '🥕', '🍌', '🥦', '🍊', '🥔', '�
 
 // 3. Konami code easter egg
 let konamiCode = [];
-const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+const konamiSequence = ['ArrowLeft', 'ArrowLeft', 'ArrowRight', 'ArrowRight', 'ArrowUp', 'a'];
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
@@ -60,6 +60,14 @@ function initLogoClickCounter() {
     if (!logo) return;
 
     logo.addEventListener('click', function(e) {
+        // Prevent refresh if already on dashboard
+        const currentPath = window.location.pathname;
+        const logoPath = new URL(this.href).pathname;
+        
+        if (currentPath === logoPath) {
+            e.preventDefault(); // Don't navigate if already on this page
+        }
+        
         clickCount++;
         localStorage.setItem('logoClickCount', clickCount);
         
@@ -119,11 +127,11 @@ function showClickTooltip(element, count) {
     setTimeout(() => tooltip.remove(), 1000);
 }
 
-// Feature 2: Konami Code (↑↑↓↓←→←→BA)
+// Feature 2: Konami Code (← ← → → ↑ A)
 function initKonamiCode() {
     document.addEventListener('keydown', function(e) {
         konamiCode.push(e.key);
-        konamiCode = konamiCode.slice(-10);
+        konamiCode = konamiCode.slice(-6); // Only keep last 6 keys
         
         if (konamiCode.join(',') === konamiSequence.join(',')) {
             activateKonamiMode();
