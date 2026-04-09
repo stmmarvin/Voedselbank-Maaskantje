@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Leverancier;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
-use App\Models\Leverancier;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -14,11 +13,24 @@ class LeverancierController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $leveranciers = Leverancier::query()->latest()->get();
+        $zoek = trim((string) $request->query('zoek', ''));
 
-        return view('leveranciers.index', compact('leveranciers'));
+        $leveranciers = Leverancier::query()
+            ->when($zoek !== '', function ($query) use ($zoek) {
+                $query->where(function ($nestedQuery) use ($zoek) {
+                    $nestedQuery
+                        ->where('bedrijfsnaam', 'like', "%{$zoek}%")
+                        ->orWhere('contact_naam', 'like', "%{$zoek}%")
+                        ->orWhere('contact_email', 'like', "%{$zoek}%")
+                        ->orWhere('adres', 'like', "%{$zoek}%");
+                });
+            })
+            ->latest()
+            ->get();
+
+        return view('leveranciers.index', compact('leveranciers', 'zoek'));
     }
 
     /**
@@ -41,7 +53,7 @@ class LeverancierController extends Controller
 
         Leverancier::create($data);
 
-        return redirect()->route('leveranciers.index')->with('status', 'Leverancier toegevoegd.');
+        return redirect()->route('leveranciers.index')->with('status', 'Leverancier succesvol toegevoegd');
     }
 
     /**
@@ -70,7 +82,7 @@ class LeverancierController extends Controller
 
         $leverancier->update($data);
 
-        return redirect()->route('leveranciers.index')->with('status', 'Leverancier bijgewerkt.');
+        return redirect()->route('leveranciers.index')->with('status', 'Leverancier succesvol bewerkt');
     }
 
     /**
@@ -80,7 +92,7 @@ class LeverancierController extends Controller
     {
         $leverancier->delete();
 
-        return redirect()->route('leveranciers.index')->with('status', 'Leverancier verwijderd.');
+        return redirect()->route('leveranciers.index')->with('status', 'Leverancier succesvol verwijderd');
     }
 
     /**

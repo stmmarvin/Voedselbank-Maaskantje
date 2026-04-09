@@ -60,7 +60,7 @@
     </div>
 
     <div class="form-actions">
-        <button class="button button-primary" type="submit">{{ $isEditing ? 'Wijzigingen opslaan' : 'Leverancier opslaan' }}</button>
-        <a class="button button-secondary" href="{{ route('leveranciers.index') }}">Terug naar overzicht</a>
+        <button class="button button-primary" type="submit">Bevestigen</button>
+        <a class="button button-secondary" href="{{ route('leveranciers.index') }}">Annuleren</a>
     </div>
 </form>
