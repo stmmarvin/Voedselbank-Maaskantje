@@ -21,6 +21,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/allergie-verwijderen', [App\Http\Controllers\AllergieController::class, 'verwijderen'])->name('allergie.verwijderen');
 });
 
+// Leveranciers routes (voor klanten en admins)
+Route::middleware('auth')->group(function () {
+    Route::resource('leveranciers', App\Http\Controllers\LeverancierController::class);
+});
+
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');

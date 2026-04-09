@@ -58,7 +58,17 @@ class LeverancierController extends Controller
         $data = $this->validateLeverancier($request, null);
         $this->normalizeDate($data);
 
-        Leverancier::create($data);
+        // Map lowercase field names to capitalized column names
+        $mappedData = [
+            'Bedrijfsnaam' => $data['bedrijfsnaam'],
+            'Adres' => $data['adres'],
+            'ContactNaam' => $data['contact_naam'],
+            'ContactEmail' => $data['contact_email'],
+            'Telefoon' => $data['telefoon'] ?? null,
+            'EerstvolgendeLevering' => $data['eerstvolgende_levering'] ?? null,
+        ];
+
+        Leverancier::create($mappedData);
 
         return redirect()->route('leveranciers.index')->with('status', 'Leverancier succesvol toegevoegd');
     }
@@ -94,7 +104,17 @@ class LeverancierController extends Controller
         $data = $this->validateLeverancier($request, $leverancier->getKey());
         $this->normalizeDate($data);
 
-        $leverancier->update($data);
+        // Map lowercase field names to capitalized column names
+        $mappedData = [
+            'Bedrijfsnaam' => $data['bedrijfsnaam'],
+            'Adres' => $data['adres'],
+            'ContactNaam' => $data['contact_naam'],
+            'ContactEmail' => $data['contact_email'],
+            'Telefoon' => $data['telefoon'] ?? null,
+            'EerstvolgendeLevering' => $data['eerstvolgende_levering'] ?? null,
+        ];
+
+        $leverancier->update($mappedData);
 
         return redirect()->route('leveranciers.index')->with('status', 'Leverancier succesvol bewerkt');
     }

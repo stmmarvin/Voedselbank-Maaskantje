@@ -13,12 +13,12 @@ class Leverancier extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'bedrijfsnaam',
-        'adres',
-        'contact_naam',
-        'contact_email',
-        'telefoon',
-        'eerstvolgende_levering',
+        'Bedrijfsnaam',
+        'Adres',
+        'ContactNaam',
+        'ContactEmail',
+        'Telefoon',
+        'EerstvolgendeLevering',
     ];
 
     protected $casts = [

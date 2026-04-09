@@ -477,7 +477,7 @@
                 <a href="#">Informatie</a>
                 <a href="#">Voorraad</a>
                 <a class="active" href="{{ route('allergie.overzicht') }}">Allergieën</a>
-                <a href="#">Leveranciers</a>
+                <a href="{{ route('leveranciers.index') }}">Leveranciers</a>
             </nav>
             @if(Auth::user()->Rol === 'admin')
                 <a href="{{ route('admin.gebruikers') }}" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: #ee6200; color: white; text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(238, 98, 0, 0.3); margin-left: auto;">
