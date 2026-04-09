@@ -37,11 +37,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 24px;
+            padding: 0 24px;
             margin-bottom: 28px;
             background-color: var(--surface);
             border: 1px solid var(--line);
             border-radius: 18px;
+            overflow: hidden;
         }
 
         .brand {
@@ -54,45 +55,61 @@
 
         .nav-links {
             display: flex;
-            gap: 18px;
+            gap: 10px;
             flex-wrap: wrap;
             justify-content: flex-end;
             align-items: center;
+            margin-left: auto;
+            padding: 14px 0;
         }
 
         .nav-links a {
             display: inline-flex;
-            flex-direction: column;
             align-items: center;
-            gap: 6px;
-            min-width: 132px;
-            padding: 12px 14px;
+            justify-content: center;
+            min-height: 56px;
+            padding: 0 18px;
             text-align: center;
-            line-height: 1.35;
-            color: var(--muted);
-            font-size: 0.95rem;
+            white-space: normal;
+            color: var(--text);
+            font-size: 0.92rem;
             font-weight: 700;
             text-decoration: none;
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            background: linear-gradient(180deg, #fffaf3 0%, var(--accent-soft) 100%);
-            box-shadow: 0 8px 18px rgba(223, 122, 23, 0.08);
-            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+            line-height: 1.2;
+            border: 1px solid rgba(223, 122, 23, 0.12);
+            border-radius: 14px;
+            background: linear-gradient(180deg, #fffdfa 0%, #fff4e8 100%);
+            box-shadow: 0 8px 20px rgba(223, 122, 23, 0.08);
+            transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
         }
 
         .nav-links a:hover {
+            background: linear-gradient(180deg, #fff8ef 0%, #ffe7cb 100%);
             color: var(--accent-dark);
-            border-color: rgba(223, 122, 23, 0.35);
-            box-shadow: 0 12px 24px rgba(223, 122, 23, 0.18);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
+            box-shadow: 0 12px 24px rgba(223, 122, 23, 0.14);
         }
 
-        .nav-word {
-            display: block;
+        .nav-links a.active {
+            background-color: var(--accent);
+            color: #ffffff;
+            background: linear-gradient(180deg, #f08a18 0%, #df7a17 100%);
+            border-color: rgba(191, 101, 13, 0.25);
+            box-shadow: 0 14px 28px rgba(223, 122, 23, 0.24);
         }
 
-        .nav-word + .nav-word {
-            margin-top: 2px;
+        .nav-search {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            min-height: 56px;
+            color: var(--text);
+            margin-left: 12px;
+            border: 1px solid rgba(223, 122, 23, 0.12);
+            border-radius: 14px;
+            background: linear-gradient(180deg, #fffdfa 0%, #fff4e8 100%);
+            box-shadow: 0 8px 20px rgba(223, 122, 23, 0.08);
         }
 
         .logo {
@@ -195,12 +212,27 @@
             .navbar {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 12px;
+                padding: 18px;
+                gap: 16px;
             }
 
             .nav-links {
-                gap: 12px;
+                width: 100%;
                 justify-content: flex-start;
+                margin-left: 0;
+                padding: 0;
+            }
+
+            .nav-links a {
+                min-height: 52px;
+                padding: 10px 14px;
+            }
+
+            .nav-search {
+                width: 56px;
+                min-height: 56px;
+                border: 1px solid var(--line);
+                border-radius: 14px;
             }
 
             .hero {
@@ -223,26 +255,18 @@
                 </div>
             </div>
             <div class="nav-links">
-                <a href="#">
-                    <span class="nav-word">Klant</span>
-                    <span class="nav-word">registeren</span>
-                </a>
-                <a href="#">
-                    <span class="nav-word">Leverancier</span>
-                    <span class="nav-word">registeren</span>
-                </a>
-                <a href="#">
-                    <span class="nav-word">Allergie</span>
-                    <span class="nav-word">overzicht</span>
-                </a>
-                <a href="#">
-                    <span class="nav-word">Voorraad</span>
-                    <span class="nav-word">overzicht</span>
-                </a>
-                <a href="#">
-                    <span class="nav-word">Voedselpakketten</span>
-                    <span class="nav-word">aanmaken</span>
-                </a>
+                <a class="active" href="#">Home</a>
+                <a href="#">Klant registeren</a>
+                <a href="#">Leverancier registeren</a>
+                <a href="#">Allergie overzicht</a>
+                <a href="#">Voorraad overzicht</a>
+                <a href="#">Voedselpakketten aanmaken</a>
+            </div>
+            <div class="nav-search" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2.5"/>
+                    <path d="M16 16L21 21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
             </div>
         </nav>
 
