@@ -62,10 +62,17 @@
         }
 
         .nav-links span {
-            cursor: default;
-            padding: 8px 12px;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            min-width: 132px;
+            padding: 12px 14px;
+            text-align: center;
+            line-height: 1.35;
             border-radius: 999px;
             background-color: var(--accent-soft);
+            cursor: default;
         }
 
         .logo {
