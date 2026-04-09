@@ -6,13 +6,13 @@
     <section class="hero">
         <div>
             <h1>Leverancier Overzicht</h1>
-            <p>Bekijk alle leveranciers, zoek snel een relatie op en ga direct door naar toevoegen, bewerken of verwijderen.</p>
+            <p>Bekijk alle leveranciers.</p>
         </div>
 
         <a class="button button-primary" href="{{ route('leveranciers.create') }}">Leverancier toevoegen</a>
     </section>
 
-    <section class="panel" style="padding: 18px; margin-bottom: 18px;">
+    <section class="panel" style="padding: 10px; margin-bottom: 14px;">
         <form method="GET" action="{{ route('leveranciers.index') }}">
             <input
                 type="search"
@@ -20,13 +20,13 @@
                 value="{{ $zoek }}"
                 placeholder="Zoeken..."
                 aria-label="Zoeken in leveranciers"
-                style="width: 100%; max-width: 320px; padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(148, 163, 184, 0.2); background: rgba(15, 23, 42, 0.88); color: #e5eefc;"
+                style="width: 100%; max-width: 170px; padding: 3px 8px; border-radius: 2px; border: 1px solid #bdbdbd; background: #ffffff; color: #222;"
             >
         </form>
     </section>
 
     <section class="panel">
-        <table class="table" style="display: none;">
+        <table class="table">
             <thead>
                 <tr>
                     <th>Naam</th>
@@ -39,7 +39,7 @@
                 @forelse ($leveranciers as $leverancier)
                     <tr>
                         <td>
-                            <strong>{{ $leverancier->bedrijfsnaam }}</strong><br>
+                            <strong>{{ $leverancier->bedrijfsnaam }}</strong>
                         </td>
                         <td>
                             {{ $leverancier->contact_naam }}<br>
@@ -52,7 +52,7 @@
                                 <form method="POST" action="{{ route('leveranciers.destroy', $leverancier) }}" onsubmit="return confirm('Weet je zeker dat je deze leverancier wilt verwijderen?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="button button-danger" type="submit">Verwijderen</button>
+                                    <button class="button button-danger" type="submit">Verwijder</button>
                                 </form>
                             </div>
                         </td>
@@ -79,7 +79,7 @@
                         <form method="POST" action="{{ route('leveranciers.destroy', $leverancier) }}" onsubmit="return confirm('Weet je zeker dat je deze leverancier wilt verwijderen?');">
                             @csrf
                             @method('DELETE')
-                            <button class="button button-danger" type="submit">Verwijderen</button>
+                            <button class="button button-danger" type="submit">Verwijder</button>
                         </form>
                     </div>
                 </div>
@@ -92,8 +92,8 @@
     <style>
         .mobile-list { display: none; }
         .mobile-item {
-            padding: 16px 0;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+            padding: 12px 0;
+            border-bottom: 1px solid #d0d0d0;
         }
 
         .mobile-item:last-child { border-bottom: 0; }

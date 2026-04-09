@@ -6,28 +6,25 @@
     <title>@yield('title', config('app.name', 'Laravel'))</title>
     <style>
         :root {
-            --bg: #07111f;
-            --panel: rgba(15, 23, 42, 0.92);
-            --panel-2: rgba(30, 41, 59, 0.92);
-            --text: #e5eefc;
-            --muted: #9fb0ca;
-            --line: rgba(148, 163, 184, 0.18);
-            --accent: #38bdf8;
-            --accent-strong: #0ea5e9;
-            --success: #34d399;
-            --danger: #fb7185;
-            --warning: #fbbf24;
+            --bg: #f6f6f6;
+            --panel: #ffffff;
+            --panel-2: #fafafa;
+            --text: #222222;
+            --muted: #666666;
+            --line: #c8c8c8;
+            --accent: #7d7d7d;
+            --accent-strong: #5f5f5f;
+            --success: #5f5f5f;
+            --danger: #7a7a7a;
+            --warning: #7a7a7a;
         }
 
         * { box-sizing: border-box; }
 
         body {
             margin: 0;
-            font-family: Inter, "Segoe UI", Arial, sans-serif;
-            background:
-                radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 28%),
-                radial-gradient(circle at top right, rgba(52, 211, 153, 0.12), transparent 32%),
-                linear-gradient(180deg, #05101d 0%, #0b1320 55%, #060b14 100%);
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
             color: var(--text);
             min-height: 100vh;
         }
@@ -35,18 +32,17 @@
         a { color: inherit; text-decoration: none; }
 
         .page {
-            max-width: 1180px;
+            max-width: 1120px;
             margin: 0 auto;
-            padding: 32px 20px 48px;
+            padding: 20px;
         }
 
         .shell {
             background: var(--panel);
             border: 1px solid var(--line);
-            border-radius: 24px;
+            border-radius: 2px;
             overflow: hidden;
-            box-shadow: 0 22px 60px rgba(2, 6, 23, 0.45);
-            backdrop-filter: blur(18px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
         }
 
         .topbar {
@@ -54,8 +50,9 @@
             justify-content: space-between;
             align-items: center;
             gap: 16px;
-            padding: 24px 28px;
+            padding: 12px 16px;
             border-bottom: 1px solid var(--line);
+            background: #f1f1f1;
         }
 
         .brand {
@@ -64,8 +61,7 @@
         }
 
         .brand strong {
-            font-size: 1.05rem;
-            letter-spacing: 0.02em;
+            font-size: 1.1rem;
         }
 
         .brand span,
@@ -77,7 +73,7 @@
         .nav {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
 
         .badge,
@@ -86,28 +82,28 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            border-radius: 999px;
-            font-weight: 600;
-            border: 1px solid transparent;
-            transition: transform 120ms ease, border-color 120ms ease, background-color 120ms ease;
+            border-radius: 2px;
+            font-weight: 400;
+            border: 1px solid var(--line);
+            transition: background-color 120ms ease, border-color 120ms ease;
         }
 
-        .badge { padding: 8px 14px; background: rgba(148, 163, 184, 0.12); color: var(--text); }
-        .button, .button-link { padding: 10px 16px; }
-        .button:hover, .button-link:hover, .badge:hover { transform: translateY(-1px); }
-        .button-primary { background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: #062033; }
-        .button-secondary { background: rgba(148, 163, 184, 0.12); color: var(--text); border-color: var(--line); }
-        .button-danger { background: rgba(251, 113, 133, 0.12); color: #fecdd3; border-color: rgba(251, 113, 133, 0.3); }
+        .badge { padding: 4px 10px; background: #efefef; color: var(--text); }
+        .button, .button-link { padding: 5px 12px; background: #efefef; color: var(--text); }
+        .button:hover, .button-link:hover, .badge:hover { background: #e2e2e2; }
+        .button-primary { background: #efefef; color: var(--text); border-color: #a7a7a7; }
+        .button-secondary { background: #efefef; color: var(--text); }
+        .button-danger { background: #6f6f6f; color: #ffffff; border-color: #6f6f6f; }
 
-        main { padding: 28px; }
+        main { padding: 16px; }
 
         .alert {
-            margin-bottom: 24px;
-            padding: 14px 16px;
-            border-radius: 16px;
-            border: 1px solid rgba(52, 211, 153, 0.28);
-            background: rgba(16, 185, 129, 0.12);
-            color: #d1fae5;
+            margin-bottom: 16px;
+            padding: 10px 12px;
+            border-radius: 2px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+            color: var(--text);
         }
 
         .grid {
@@ -120,40 +116,23 @@
             justify-content: space-between;
             align-items: flex-start;
             gap: 20px;
-            margin-bottom: 22px;
+            margin-bottom: 14px;
         }
 
         .hero h1,
         .hero h2 {
             margin: 0 0 10px;
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            line-height: 1.05;
+            font-size: 1.5rem;
+            line-height: 1.1;
         }
 
         .hero p { margin: 0; max-width: 60ch; color: var(--muted); }
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px;
-            margin-bottom: 22px;
-        }
-
-        .card {
-            padding: 18px;
-            border-radius: 20px;
-            border: 1px solid var(--line);
-            background: var(--panel-2);
-        }
-
-        .card-label { color: var(--muted); font-size: 0.92rem; }
-        .card-value { font-size: 1.5rem; font-weight: 700; margin-top: 8px; }
-
         .panel {
             border: 1px solid var(--line);
-            border-radius: 20px;
+            border-radius: 2px;
             overflow: hidden;
-            background: rgba(2, 6, 23, 0.24);
+            background: var(--panel);
         }
 
         .table {
@@ -163,18 +142,16 @@
 
         .table th,
         .table td {
-            padding: 16px 18px;
+            padding: 8px 10px;
             border-bottom: 1px solid var(--line);
             text-align: left;
             vertical-align: top;
         }
 
         .table th {
-            color: #cbd5e1;
-            font-size: 0.84rem;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            background: rgba(148, 163, 184, 0.08);
+            color: var(--text);
+            font-size: 0.95rem;
+            background: #f4f4f4;
         }
 
         .table tr:last-child td { border-bottom: none; }
@@ -182,64 +159,69 @@
         .actions {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 6px;
         }
 
         .stack { display: grid; gap: 14px; }
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
+            grid-template-columns: 1fr;
+            gap: 8px;
         }
 
-        .field { display: grid; gap: 8px; }
+        .field {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            gap: 10px;
+            align-items: center;
+        }
 
         .field label {
-            font-weight: 600;
-            color: #dbe4f0;
+            font-weight: 400;
+            color: var(--text);
         }
 
         .field input,
         .field textarea {
             width: 100%;
-            padding: 12px 14px;
-            border-radius: 14px;
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            background: rgba(15, 23, 42, 0.88);
+            padding: 4px 8px;
+            border-radius: 2px;
+            border: 1px solid var(--line);
+            background: #ffffff;
             color: var(--text);
             outline: none;
         }
 
         .field input:focus,
         .field textarea:focus {
-            border-color: rgba(56, 189, 248, 0.8);
-            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.12);
+            border-color: #888888;
+            box-shadow: none;
         }
 
-        .field textarea { min-height: 110px; resize: vertical; }
+        .field textarea { min-height: 30px; resize: vertical; }
 
         .error {
-            color: #fecaca;
-            font-size: 0.92rem;
+            color: #8a1f1f;
+            font-size: 0.88rem;
         }
 
         .form-actions {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 8px;
+            gap: 8px;
+            margin-top: 12px;
         }
 
         .empty {
-            padding: 32px 24px;
+            padding: 18px 14px;
             text-align: center;
             color: var(--muted);
         }
 
         @media (max-width: 860px) {
-            .cards,
             .form-grid { grid-template-columns: 1fr; }
+            .field { grid-template-columns: 1fr; }
 
             .hero,
             .topbar { flex-direction: column; align-items: flex-start; }
@@ -251,13 +233,13 @@
         <div class="shell">
             <header class="topbar">
                 <div class="brand">
-                    <strong>Voedselbank Maaskantje</strong>
-                    <span>Leveranciersbeheer met overzicht, toevoegen, bewerken en verwijderen</span>
+                    <strong>Voedselbank</strong>
+                    <span>Leveranciersbeheer</span>
                 </div>
 
                 <nav class="nav">
                     <a class="badge" href="{{ route('leveranciers.index') }}">Overzicht</a>
-                    <a class="badge" href="{{ route('leveranciers.create') }}">Nieuwe leverancier</a>
+                    <a class="badge" href="{{ route('leveranciers.create') }}">Leverancier toevoegen</a>
                 </nav>
             </header>
 
