@@ -39,6 +39,11 @@
             </thead>
             <tbody>
                 @forelse ($leveranciers as $leverancier)
+                    @php
+                        $levering = $leverancier->eerstvolgende_levering;
+                        $isBezig = $levering && $levering->isAfter(now());
+                        $isVoltooid = $levering && !$isBezig;
+                    @endphp
                     <tr>
                         <td>
                             <strong>{{ $leverancier->bedrijfsnaam }}</strong>
@@ -49,15 +54,17 @@
                         </td>
                         <td>{{ $leverancier->adres }}</td>
                         <td>
-                            @if ($leverancier->eerstvolgende_levering)
+                            @if ($isBezig)
                                 <span class="badge" style="background: #fff3cd; color: #856404;">Bezig</span>
+                            @elseif ($isVoltooid)
+                                <span class="badge" style="background: #cce5ff; color: #004085;">Voltooid</span>
                             @else
                                 <span class="badge" style="background: #d4edda; color: #155724;">Inactief</span>
                             @endif
                         </td>
                         <td>
-                            @if ($leverancier->eerstvolgende_levering)
-                                {{ $leverancier->eerstvolgende_levering->format('d-m-Y') }}
+                            @if ($levering)
+                                {{ $levering->format('d-m-Y') }}
                             @else
                                 <span class="muted">—</span>
                             @endif
@@ -65,11 +72,11 @@
                         <td>
                             <div class="actions">
                                 <a class="button button-secondary" href="{{ route('leveranciers.edit', $leverancier) }}">Bewerken</a>
-                                    <form method="POST" action="{{ route('leveranciers.destroy', $leverancier) }}" onsubmit="return confirm('Weet je zeker dat je deze leverancier wilt verwijderen?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="button button-danger" type="submit">Verwijder</button>
-                                    </form>
+                                <form method="POST" action="{{ route('leveranciers.destroy', $leverancier) }}" onsubmit="return confirm('Weet je zeker dat je deze leverancier wilt verwijderen?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="button button-danger" type="submit">Verwijder</button>
+                                </form>
                             </div>
                         </td>
                     </tr>
@@ -87,24 +94,32 @@
 
         <div class="mobile-list">
             @forelse ($leveranciers as $leverancier)
+                @php
+                    $levering = $leverancier->eerstvolgende_levering;
+                    $isBezig = $levering && $levering->isAfter(now());
+                    $isVoltooid = $levering && !$isBezig;
+                @endphp
                 <div class="mobile-item">
                     <div class="mobile-title">{{ $leverancier->bedrijfsnaam }}</div>
                     <div class="muted">{{ $leverancier->contact_naam }} | {{ $leverancier->adres }}</div>
                     <div style="margin-top: 8px;">
-                        @if ($leverancier->eerstvolgende_levering)
+                        @if ($isBezig)
                             <div><strong>Status:</strong> <span class="badge" style="background: #fff3cd; color: #856404;">Bezig</span></div>
-                            <div style="margin-top: 4px;"><strong>Levering:</strong> {{ $leverancier->eerstvolgende_levering->format('d-m-Y') }}</div>
+                            <div style="margin-top: 4px;"><strong>Levering:</strong> {{ $levering->format('d-m-Y') }}</div>
+                        @elseif ($isVoltooid)
+                            <div><strong>Status:</strong> <span class="badge" style="background: #cce5ff; color: #004085;">Voltooid</span></div>
+                            <div style="margin-top: 4px;"><strong>Levering:</strong> {{ $levering->format('d-m-Y') }}</div>
                         @else
                             <div><strong>Status:</strong> <span class="badge" style="background: #d4edda; color: #155724;">Inactief</span></div>
                         @endif
                     </div>
                     <div class="actions" style="margin-top: 12px;">
                         <a class="button button-secondary" href="{{ route('leveranciers.edit', $leverancier) }}">Bewerken</a>
-                            <form method="POST" action="{{ route('leveranciers.destroy', $leverancier) }}" onsubmit="return confirm('Weet je zeker dat je deze leverancier wilt verwijderen?');">
-                                @csrf
-                                @method('DELETE')
-                                <button class="button button-danger" type="submit">Verwijder</button>
-                            </form>
+                        <form method="POST" action="{{ route('leveranciers.destroy', $leverancier) }}" onsubmit="return confirm('Weet je zeker dat je deze leverancier wilt verwijderen?');">
+                            @csrf
+                            @method('DELETE')
+                            <button class="button button-danger" type="submit">Verwijder</button>
+                        </form>
                     </div>
                 </div>
             @empty

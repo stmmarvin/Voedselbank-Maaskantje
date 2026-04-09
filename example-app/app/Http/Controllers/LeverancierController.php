@@ -80,6 +80,13 @@ class LeverancierController extends Controller
      */
     public function update(Request $request, Leverancier $leverancier): RedirectResponse
     {
+        if ($leverancier->eerstvolgende_levering && $leverancier->eerstvolgende_levering->isAfter(now())) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Leverancier kan niet worden bewerkt omdat er een actieve bestelling aan gekoppeld is');
+        }
+
         $data = $this->validateLeverancier($request, $leverancier->id);
         $this->normalizeDate($data);
 
@@ -93,8 +100,8 @@ class LeverancierController extends Controller
      */
     public function destroy(Leverancier $leverancier): RedirectResponse
     {
-        if ($leverancier->eerstvolgende_levering) {
-            return redirect()->route('leveranciers.index')->with('error', 'Deze leverancier kan niet verwijderd worden omdat deze nog bezig is met een bezorging.');
+        if ($leverancier->eerstvolgende_levering && $leverancier->eerstvolgende_levering->isAfter(now())) {
+            return redirect()->route('leveranciers.index')->with('error', 'Leverancier kan niet worden verwijderd omdat er nog actieve bestellingen aan gekoppeld zijn');
         }
 
         $leverancier->delete();

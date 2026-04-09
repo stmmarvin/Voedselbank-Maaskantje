@@ -12,8 +12,8 @@
             --text: #222222;
             --muted: #666666;
             --line: #c8c8c8;
-            --accent: #ff9d3f;
-            --accent-strong: #ff8c1a;
+            --accent: #df7a17;
+            --accent-strong: #f08a18;
             --success: #5f5f5f;
             --danger: #d9534f;
             --warning: #f0ad4e;
@@ -52,7 +52,7 @@
             gap: 16px;
             padding: 12px 16px;
             border-bottom: none;
-            background: linear-gradient(135deg, #ff9d3f 0%, #ff8c1a 100%);
+            background: linear-gradient(135deg, #df7a17 0%, #f08a18 100%);
         }
 
         .brand {
@@ -260,9 +260,9 @@
                 </div>
 
                 <nav class="nav">
-                    <a class="badge" href="{{ route('leveranciers.index') }}">🏠 Home</a>
-                    <a class="badge" href="#">📦 Voorraad</a>
-                    <a class="badge" href="#">⚙️ Instellingen</a>
+                    <a class="badge" href="{{ route('leveranciers.index') }}">Home</a>
+                    <a class="badge" href="#">Voorraad</a>
+                    <a class="badge" href="#">Instellingen</a>
                 </nav>
             </header>
 

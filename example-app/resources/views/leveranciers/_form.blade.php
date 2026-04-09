@@ -60,7 +60,7 @@
     </div>
 
     <div class="form-actions">
-        <button class="button button-primary" type="submit">Opslaan</button>
+        <button class="button button-primary" type="submit">Bevestigen</button>
         <a class="button button-secondary" href="{{ route('leveranciers.index') }}">Annuleren</a>
     </div>
 </form>
