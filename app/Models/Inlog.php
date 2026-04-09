@@ -41,4 +41,9 @@ class Inlog extends Authenticatable
     {
         return $this->Rol === 'admin';
     }
+
+    public function klant()
+    {
+        return $this->hasOne(Klant::class, 'Inlog_Id', 'Id');
+    }
 }
