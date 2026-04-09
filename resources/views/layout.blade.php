@@ -254,7 +254,6 @@
             <span class="logo-text">Mijn Overzicht</span>
         </div>
         <div class="top-bar-right">
-            <span>Mohammed@gmail.com</span>
             <a href="#">Uitloggen</a>
         </div>
     </div>
