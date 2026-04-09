@@ -255,18 +255,7 @@
                 </div>
             </div>
             <div class="nav-links">
-                <a class="active" href="#">Home</a>
-                <a href="#">Klant registeren</a>
-                <a href="#">Leverancier registeren</a>
-                <a href="#">Allergie overzicht</a>
-                <a href="#">Voorraad overzicht</a>
-                <a href="#">Voedselpakketten aanmaken</a>
-            </div>
-            <div class="nav-search" aria-hidden="true">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                    <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2.5"/>
-                    <path d="M16 16L21 21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-                </svg>
+                <a class="active" href="#">Login</a>
             </div>
         </nav>
 
