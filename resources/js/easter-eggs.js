@@ -1,8 +1,31 @@
 // Easter Eggs en Interactieve Features voor Voedselbank Maaskantje
+// ALLEEN VOOR KLANTEN - NIET VOOR ADMINS
 
-// 1. Klik counter voor achtergrond verandering
-let clickCount = 0;
-let isRedBackground = false;
+// Check if user is admin (admin badge exists in nav)
+function isAdminUser() {
+    // Check for admin badge in navigation
+    const adminBadge = document.querySelector('nav span.uppercase');
+    if (adminBadge && adminBadge.textContent.includes('Admin')) {
+        return true;
+    }
+    
+    // Check for admin badge with specific classes
+    const adminBadge2 = document.querySelector('nav .bg-orange-500.uppercase');
+    if (adminBadge2) {
+        return true;
+    }
+    
+    // Check URL for admin routes
+    if (window.location.pathname.includes('/admin/')) {
+        return true;
+    }
+    
+    return false;
+}
+
+// 1. Klik counter voor achtergrond verandering (saved in localStorage)
+let clickCount = parseInt(localStorage.getItem('logoClickCount') || '0');
+let isRedBackground = localStorage.getItem('redBackground') === 'true';
 
 // 2. Floating food emojis
 const foodEmojis = ['🍎', '🥖', '🥕', '🍌', '🥦', '🍊', '🥔', '🍅', '🥒', '🧀', '🥛', '🍞'];
@@ -13,11 +36,22 @@ const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLe
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
+    // Skip all easter eggs if user is admin
+    if (isAdminUser()) {
+        console.log('Admin detected - Easter eggs disabled');
+        return;
+    }
+
     initLogoClickCounter();
     initKonamiCode();
     initRandomFoodBackground();
     initHoverEffects();
     initConfettiOnSuccess();
+    
+    // Restore red background if it was active
+    if (isRedBackground) {
+        document.body.style.backgroundColor = '#fee2e2';
+    }
 });
 
 // Feature 1: Logo click counter (10 clicks = red background)
@@ -27,6 +61,7 @@ function initLogoClickCounter() {
 
     logo.addEventListener('click', function(e) {
         clickCount++;
+        localStorage.setItem('logoClickCount', clickCount);
         
         // Add shake animation
         logo.style.animation = 'shake 0.3s';
@@ -35,10 +70,10 @@ function initLogoClickCounter() {
         if (clickCount === 10) {
             toggleRedBackground();
             clickCount = 0;
+            localStorage.setItem('logoClickCount', '0');
         }
-
-        // Show click counter tooltip
-        showClickTooltip(logo, clickCount);
+        
+        // No tooltip - keep it secret!
     });
 }
 
@@ -48,10 +83,12 @@ function toggleRedBackground() {
     if (!isRedBackground) {
         body.style.transition = 'background-color 1s ease';
         body.style.backgroundColor = '#fee2e2'; // Light red
+        localStorage.setItem('redBackground', 'true');
         showNotification('🔴 Rode modus geactiveerd!', 'error');
         createFireworks();
     } else {
         body.style.backgroundColor = '#fdf6ec'; // Original cream
+        localStorage.setItem('redBackground', 'false');
         showNotification('✅ Normale modus hersteld!', 'success');
     }
     
@@ -316,8 +353,10 @@ function showNotification(message, type = 'success') {
     }, 3000);
 }
 
-// Feature 6: Double click on stats cards for animation
+// Feature 6: Double click on stats cards for animation (ONLY FOR KLANTEN)
 document.addEventListener('DOMContentLoaded', function() {
+    if (isAdminUser()) return; // Skip for admins
+    
     const statCards = document.querySelectorAll('.card');
     
     statCards.forEach(card => {

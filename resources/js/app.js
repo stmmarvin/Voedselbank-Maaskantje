@@ -1,4 +1,5 @@
 import './bootstrap';
+import './easter-eggs';
 
 import Alpine from 'alpinejs';
 
