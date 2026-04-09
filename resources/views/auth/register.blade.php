@@ -1,10 +1,10 @@
 <x-guest-layout>
-    <div class="mb-6">
+    <div class="mb-6 animate-fade-in">
         <h2 class="text-xl font-bold text-orange-700">Account aanmaken</h2>
         <p class="text-sm text-gray-500 mt-1">Registreer u als klant bij Voedselbank Maaskantje.</p>
     </div>
 
-    <form method="POST" action="{{ route('register') }}" class="space-y-4">
+    <form method="POST" action="{{ route('register') }}" class="space-y-4 animate-slide-up">
         @csrf
 
         <div>
@@ -70,7 +70,7 @@
                 placeholder="••••••••" />
         </div>
 
-        <button type="submit" class="btn-primary w-full text-center">
+        <button type="submit" class="btn-primary w-full text-center hover:scale-105 hover:shadow-lg transition-all duration-300">
             Account aanmaken
         </button>
 

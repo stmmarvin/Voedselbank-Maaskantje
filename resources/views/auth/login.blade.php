@@ -1,12 +1,12 @@
 <x-guest-layout>
-    <div class="mb-6">
+    <div class="mb-6 animate-fade-in">
         <h2 class="text-xl font-bold text-orange-700">Inloggen</h2>
         <p class="text-sm text-gray-500 mt-1">Welkom terug bij Voedselbank Maaskantje.</p>
     </div>
 
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}" class="space-y-5">
+    <form method="POST" action="{{ route('login') }}" class="space-y-5 animate-slide-up">
         @csrf
 
         <div>
@@ -40,7 +40,7 @@
             </label>
         </div>
 
-        <button type="submit" class="btn-primary w-full text-center">
+        <button type="submit" class="btn-primary w-full text-center hover:scale-105 hover:shadow-lg transition-all duration-300">
             Inloggen
         </button>
 

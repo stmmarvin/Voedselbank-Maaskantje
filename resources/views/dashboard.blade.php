@@ -35,11 +35,18 @@
         </div>
     </x-slot>
 
-    <div class="py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+    <div class="py-10 relative overflow-hidden">
+        <!-- Watermark logo rechts onderin -->
+        <div class="fixed bottom-0 right-0 opacity-5 pointer-events-none z-0" style="transform: rotate(-15deg) translate(20%, 20%);">
+            <svg class="w-96 h-96 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 2v7c0 1.1.9 2 2 2h2v11h2V11h2c1.1 0 2-.9 2-2V2H3zm16 0v6h-1V2h-2v6h-1V2h-2v6c0 1.66 1.34 3 3 3v11h2V11c1.66 0 3-1.34 3-3V2h-2z"/>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 relative z-10">
 
             <!-- Welkom bericht -->
-            <div class="card border-l-4 border-orange-600">
+            <div class="card border-l-4 border-orange-600 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 animate-fade-in">
                 <h3 class="font-semibold text-orange-700 text-lg">Welkom bij Voedselbank Maaskantje</h3>
                 <p class="text-gray-600 text-sm mt-1">
                     U bent ingelogd als <strong>{{ Auth::user()->isAdmin() ? 'administrator' : 'klant' }}</strong>.
@@ -49,7 +56,7 @@
 
             @if(Auth::user()->isAdmin())
                 <!-- Admin Paneel knop -->
-                <div class="card bg-gradient-to-r from-orange-500 to-orange-600 text-white border-0">
+                <div class="card bg-gradient-to-r from-orange-500 to-orange-600 text-white border-0 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 animate-slide-up">
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="font-bold text-lg">⚙️ Beheerderspaneel</h3>

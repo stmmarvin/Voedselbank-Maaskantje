@@ -15,6 +15,9 @@ Route::get('/dashboard', fn() => view('dashboard'))
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
     Route::get('/gebruikers', [AdminController::class, 'gebruikers'])->name('gebruikers');
+    Route::get('/gebruikers/{id}/edit', [AdminController::class, 'edit'])->name('gebruikers.edit');
+    Route::put('/gebruikers/{id}', [AdminController::class, 'update'])->name('gebruikers.update');
+    Route::delete('/gebruikers/{id}', [AdminController::class, 'destroy'])->name('gebruikers.destroy');
 });
 
 require __DIR__.'/auth.php';
