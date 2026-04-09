@@ -130,6 +130,12 @@ function showClickTooltip(element, count) {
 // Feature 2: Konami Code (← ← → → ↑ A)
 function initKonamiCode() {
     document.addEventListener('keydown', function(e) {
+        // Check if it's an arrow key
+        if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+            // Prevent scrolling when typing konami code
+            e.preventDefault();
+        }
+        
         konamiCode.push(e.key);
         konamiCode = konamiCode.slice(-6); // Only keep last 6 keys
         
