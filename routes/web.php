@@ -26,6 +26,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('leveranciers', App\Http\Controllers\LeverancierController::class);
 });
 
+// Voorraad routes (voor klanten en admins)
+Route::middleware('auth')->group(function () {
+    Route::resource('voorraad', App\Http\Controllers\VoorraadController::class);
+});
+
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');

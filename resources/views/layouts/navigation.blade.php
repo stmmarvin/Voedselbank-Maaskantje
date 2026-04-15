@@ -15,6 +15,7 @@
                         Voedselbank <span class="text-orange-300">Maaskantje</span>
                     </span>
                 </a>
+                <a href="{{ route('voorraad.index') }}" class="text-white hover:text-orange-300 font-semibold">Voorraad</a>
             </div>
 
             <!-- Right side -->
@@ -52,7 +53,7 @@
         <div class="pt-2 space-y-1">
             <a href="{{ route('dashboard') }}" class="block nav-link">Overzicht</a>
             <a href="#" class="block nav-link">📋 Informatie</a>
-            <a href="#" class="block nav-link">📦 Voorraad</a>
+            <a href="{{ route('voorraad.index') }}" class="block nav-link">📦 Voorraad</a>
             <a href="#" class="block nav-link">⚠️ Allergieën</a>
             <a href="#" class="block nav-link">🏢 Leveranciers</a>
         </div>
